@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33424.131
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Interactive Bot YT", "Interactive Bot YT\Interactive Bot YT.pyproj", "{42F80F63-9DD1-4EF5-98BB-7938E451559A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{42F80F63-9DD1-4EF5-98BB-7938E451559A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42F80F63-9DD1-4EF5-98BB-7938E451559A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CBD8E7B6-7F35-4BE5-ADFF-53398D942C58}
+	EndGlobalSection
+EndGlobal
