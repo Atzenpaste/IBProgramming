@@ -3,7 +3,7 @@ from ibapi.client import EClient
 from ibapi.wrapper import EWrapper
 
 from ibapi.contract import Contract
-from ibapi.order import *
+from ibapi.order import Order
 import threading
 import time
 
@@ -21,27 +21,34 @@ class IBApi(EWrapper, EClient):
             print(e)
     def error(self, id, errorCode, errorString):
         print(errorCode, errorString)
-#Bot Logic
+
+
+# Bot Logic
 class Bot:
     ib = None
+    id = 1
+
     def __init__(self):
-        #Connect TO IB on Init
+        # Connect TO IB on Init
         self.ib = IBApi()
         self.ib.connect("127.0.0.1", 7497,1)
         ib_thread = threading.Thread(target=self.run_loop, daemon=True)
         ib_thread.start()            
         time.sleep(1)
-        #Get Symbol Info
+        # Get Symbol Info
         symbol = input("enter the symbol you want to trade : ")
-        #Create our IB Contract Objective
-        contract = Contract()   #Contract= Aktien hier gemeint als Vertrag--> hier wird definiert was bei Der Aktie angezeigt werden soll
+        # Create our IB Contract Objective
+        contract = Contract()
+        # Contract= Aktien hier gemeint als Vertrag
+        # --> hier wird definiert was bei Der Aktie angezeigt werden soll
         contract.symbol = symbol.upper()
         contract.secType = "STK"
         contract.exchange = "Smart"
         contract.currency = "USD"
-        #Request Market Data
-        self.ib.reqRealTimeBars(0, contract, 5, "Trades", 1,[])
-        # To Do Submit Order --> hier wird defineirt welcher ordertyp und ob kauf verkauf
+        # Request Market Data
+        self.ib.reqRealTimeBars(0, contract, 5, "Trades", True, [])
+        # To Do Submit Order --> hier wird defineirt welcher ordertyp
+        # und ob kauf verkauf
         # Create Order Object
         order = Order()
         order.ordertype = "MKT" # or LMT ETC...
@@ -49,20 +56,26 @@ class Bot:
         quantity = 100
         order.totalQuantity = quantity
         # Create Contract Object
-        contract = Contract()
-        contract.symbol = symbol
-        contract.secType = "STK" # or FUT ETC
+        # contract = Contract()
+        # contract.symbol = symbol
+        # contract.secType = "STK" # or FUT ETC
         contract.primaryExchange = "ISLAND"
-        contract.currency = "USD"
-        #Place the Order
-        self.ib.placeOrder(2, contract, order)
-    #Listen to socket in seperate thread kp ?
+        # contract.currency = "USD"
+        # Place the Order
+        self.ib.placeOrder(self.id, contract, order)
+        self.id += 1
+
+    # Listen to socket in seperate thread kp ?
     def run_loop(self):
         self.ib.run()
-    #Pass realtime bar data back to our bot object
-    def on_bar_update(self, reqID, time, open_, high, low, close, volume, wap, count):
+
+    # Pass realtime bar data back to our bot object
+    def on_bar_update(self, reqID, time, open_, high, low, close, volume,
+                      wap, count):
         print(close)
-#Start Bot
+
+
+# Start Bot
 bot = Bot()
 
 
